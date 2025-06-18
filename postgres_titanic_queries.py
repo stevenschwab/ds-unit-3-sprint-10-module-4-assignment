@@ -40,3 +40,17 @@ GET_AVG_AGE_OF_EACH_PASSENGER_CLASS = """
         round(avg(t.age) filter (where t.pclass = 3), 2) as avg_age_pclass3
     from titanic t;
 """
+
+GET_AVG_FARE_BY_CLASS_AND_SURVIVAL = """
+    select
+        round(avg(t.fare) filter (where t.pclass = 1), 2) as avg_fare_pclass1,
+        round(avg(t.fare) filter (where t.pclass = 1 and t.survived = 1), 2) as avg_fare_pclass1_survivor,
+        round(avg(t.fare) filter (where t.pclass = 1 and t.survived = 0), 2) as avg_fare_pclass1_nonsurvivor,
+        round(avg(t.fare) filter (where t.pclass = 2), 2) as avg_fare_pclass2,
+        round(avg(t.fare) filter (where t.pclass = 2 and t.survived = 1), 2) as avg_fare_pclass2_survivor,
+        round(avg(t.fare) filter (where t.pclass = 2 and t.survived = 0), 2) as avg_fare_pclass2_nonsurvivor,
+        round(avg(t.fare) filter (where t.pclass = 3), 2) as avg_fare_pclass3,
+        round(avg(t.fare) filter (where t.pclass = 3 and t.survived = 1), 2) as avg_fare_pclass3_survivor,
+        round(avg(t.fare) filter (where t.pclass = 3 and t.survived = 0), 2) as avg_fare_pclass3_nonsurvivor
+    from titanic t;
+"""
