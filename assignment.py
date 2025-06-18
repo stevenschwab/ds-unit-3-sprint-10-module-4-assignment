@@ -86,6 +86,9 @@ if __name__ == '__main__':
         print("How many Items does each Character have? (Return first 20 rows)")
         print(count_items_per_character(mongdb))
 
+        print("How many Weapons does each Character have? (Return first 20 rows)")
+        print(count_weapons_per_character(mongdb))
+
     except Exception as e:
         print(f"Error: {e}")
     finally:

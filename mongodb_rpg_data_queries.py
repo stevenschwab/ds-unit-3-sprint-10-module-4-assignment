@@ -41,3 +41,16 @@ def count_items_per_character(db):
         return list(cursor)
     except Exception as e:
         raise Exception(f"Error executing count_items_per_character query: {e}")
+    
+def count_weapons_per_character(db):
+    """
+        Count how many weapons each character has; return first 20 rows.
+    """
+    try:
+        cursor = db.characters.find(
+            {},
+            { "name": 1, "weapon_count": {"$size": "$weapons"}, "_id": 0}
+        ).limit(20)
+        return list(cursor)
+    except Exception as e:
+        raise Exception(f"Error executing count_weapons_per_character query: {e}")
