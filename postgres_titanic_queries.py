@@ -54,3 +54,48 @@ GET_AVG_FARE_BY_CLASS_AND_SURVIVAL = """
         round(avg(t.fare) filter (where t.pclass = 3 and t.survived = 0), 2) as avg_fare_pclass3_nonsurvivor
     from titanic t;
 """
+
+GET_SIBLINGS_SPOUSES_ABORD_BY_CLASS_AND_SURVIVAL = """
+    select
+        round(
+            count(*) filter (where t.siblings_spouses_aboard > 0)::Numeric / count(*),
+            2
+        ) as avg_siblings_spouses_aboard,
+        round(
+            count(*) filter (where t.siblings_spouses_aboard > 0 and t.pclass = 1)::Numeric / count(*) filter (where t.pclass = 1),
+            2
+        ) as avg_siblings_spouses_aboard_pclass1,
+        round(
+            count(*) filter (where t.siblings_spouses_aboard > 0 and t.pclass = 1 and t.survived = 1)::Numeric / count(*) filter (where t.pclass = 1 and t.survived = 1),
+            2
+        ) as avg_siblings_spouses_aboard_pclass1_survivor,
+        round(
+            count(*) filter (where t.siblings_spouses_aboard > 0 and t.pclass = 1 and t.survived = 0)::Numeric / count(*) filter (where t.pclass = 1 and t.survived = 0),
+            2
+        ) as avg_siblings_spouses_aboard_pclass1_nonsurvivor,
+        round(
+            count(*) filter (where t.siblings_spouses_aboard > 0 and t.pclass = 2)::Numeric / count(*) filter (where t.pclass = 2),
+            2
+        ) as avg_siblings_spouses_aboard_pclass2,
+        round(
+            count(*) filter (where t.siblings_spouses_aboard > 0 and t.pclass = 2 and t.survived = 1)::Numeric / count(*) filter (where t.pclass = 2 and t.survived = 1),
+            2
+        ) as avg_siblings_spouses_aboard_pclass2_survivor,
+        round(
+            count(*) filter (where t.siblings_spouses_aboard > 0 and t.pclass = 2 and t.survived = 0)::Numeric / count(*) filter (where t.pclass = 2 and t.survived = 0),
+            2
+        ) as avg_siblings_spouses_aboard_pclass2_nonsurvivor,
+        round(
+            count(*) filter (where t.siblings_spouses_aboard > 0 and t.pclass = 3)::Numeric / count(*) filter (where t.pclass = 3),
+            2
+        ) as avg_siblings_spouses_aboard_pclass3,
+        round(
+            count(*) filter (where t.siblings_spouses_aboard > 0 and t.pclass = 3 and t.survived = 1)::Numeric / count(*) filter (where t.pclass = 3 and t.survived = 1),
+            2
+        ) as avg_siblings_spouses_aboard_pclass3_survivor,
+        round(
+            count(*) filter (where t.siblings_spouses_aboard > 0 and t.pclass = 3 and t.survived = 0)::Numeric / count(*) filter (where t.pclass = 3 and t.survived = 0),
+            2
+        ) as avg_siblings_spouses_aboard_pclass3_nonsurvivor
+    from titanic t;
+"""
