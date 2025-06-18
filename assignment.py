@@ -55,6 +55,9 @@ if __name__ == '__main__':
 
         print("How many passengers survived/died within each class?")
         print(execute_postgres_query(GET_PASSENGERS_SURVIVED_DIED_BY_CLASS, pg_engine))
+
+        print("What was the average age of survivors vs nonsurvivors?")
+        print(execute_postgres_query(GET_AVG_AGE_OF_SURVIVORS_NONSURVIVORS, pg_engine))
         
         print('All postgres queries executed successfully')
     except Exception as e:
