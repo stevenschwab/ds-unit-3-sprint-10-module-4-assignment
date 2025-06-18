@@ -55,7 +55,7 @@ GET_AVG_FARE_BY_CLASS_AND_SURVIVAL = """
     from titanic t;
 """
 
-GET_SIBLINGS_SPOUSES_ABORD_BY_CLASS_AND_SURVIVAL = """
+GET_SIBLINGS_SPOUSES_ABOARD_BY_CLASS_AND_SURVIVAL = """
     select
         round(
             count(*) filter (where t.siblings_spouses_aboard > 0)::Numeric / count(*),
@@ -98,4 +98,60 @@ GET_SIBLINGS_SPOUSES_ABORD_BY_CLASS_AND_SURVIVAL = """
             2
         ) as avg_siblings_spouses_aboard_pclass3_nonsurvivor
     from titanic t;
+"""
+
+GET_PARENTS_CHILDREN_ABOARD_BY_CLASS_AND_SURVIVAL = """
+    select
+        round(
+            count(*) filter (where t.parents_children_aboard > 0)::Numeric / count(*),
+            2
+        ) as avg_parents_children_aboard,
+        round(
+            count(*) filter (where t.parents_children_aboard > 0 and t.pclass = 1)::Numeric / count(*) filter (where t.pclass = 1),
+            2
+        ) as avg_parents_children_aboard_pclass1,
+        round(
+            count(*) filter (where t.parents_children_aboard > 0 and t.pclass = 1 and t.survived = 1)::Numeric / count(*) filter (where t.pclass = 1 and t.survived = 1),
+            2
+        ) as avg_parents_children_aboard_pclass1_survivor,
+        round(
+            count(*) filter (where t.parents_children_aboard > 0 and t.pclass = 1 and t.survived = 0)::Numeric / count(*) filter (where t.pclass = 1 and t.survived = 0),
+            2
+        ) as avg_parents_children_aboard_pclass1_nonsurvivor,
+        round(
+            count(*) filter (where t.parents_children_aboard > 0 and t.pclass = 2)::Numeric / count(*) filter (where t.pclass = 2),
+            2
+        ) as avg_parents_children_aboard_pclass2,
+        round(
+            count(*) filter (where t.parents_children_aboard > 0 and t.pclass = 2 and t.survived = 1)::Numeric / count(*) filter (where t.pclass = 2 and t.survived = 1),
+            2
+        ) as avg_parents_children_aboard_pclass2_survivor,
+        round(
+            count(*) filter (where t.parents_children_aboard > 0 and t.pclass = 2 and t.survived = 0)::Numeric / count(*) filter (where t.pclass = 2 and t.survived = 0),
+            2
+        ) as avg_parents_children_aboard_pclass2_nonsurvivor,
+        round(
+            count(*) filter (where t.parents_children_aboard > 0 and t.pclass = 3)::Numeric / count(*) filter (where t.pclass = 3),
+            2
+        ) as avg_parents_children_aboard_pclass3,
+        round(
+            count(*) filter (where t.parents_children_aboard > 0 and t.pclass = 3 and t.survived = 1)::Numeric / count(*) filter (where t.pclass = 3 and t.survived = 1),
+            2
+        ) as avg_parents_children_aboard_pclass3_survivor,
+        round(
+            count(*) filter (where t.parents_children_aboard > 0 and t.pclass = 3 and t.survived = 0)::Numeric / count(*) filter (where t.pclass = 3 and t.survived = 0),
+            2
+        ) as avg_parents_children_aboard_pclass3_nonsurvivor
+    from titanic t;
+"""
+
+GET_PASSENGERS_WITH_SAME_LAST_NAME = """
+    select
+        TRIM(SPLIT_PART(t.name, ' ', -1)) as last_name,
+        count(*) as last_name_count,
+        STRING_AGG(t.name, ', ') as full_names
+    from titanic t 
+    GROUP BY TRIM(SPLIT_PART(t.name, ' ', -1))
+    HAVING COUNT(*) > 1
+    ORDER BY last_name_count DESC, last_name;
 """
