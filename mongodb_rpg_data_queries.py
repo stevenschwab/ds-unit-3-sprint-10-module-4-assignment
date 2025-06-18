@@ -63,10 +63,26 @@ def avg_items_per_character(db):
         pipeline = [
             {"$project": {"item_count": {"$size": {"$ifNull": ["$items", []]}}}},
             {"$group": {"_id": None, "avg_item_count": {"$avg": "$item_count"}}},
-            {"$project": {"avg_item_count": {"$round": ["$avg_item_count", 2]}}}
+            {"$project": {"avg_item_count": {"$round": ["$avg_item_count", 0]}}}
         ]
         result = db.characters.aggregate(pipeline)
         result_list = list(result)
         return result_list[0]["avg_item_count"] if result_list else 0.0
     except Exception as e:
         raise Exception(f"Error executing avg_items_per_character query: {e}")
+    
+def avg_weapons_per_character(db):
+    """
+        Get the average weapons per character
+    """
+    try:
+        pipeline = [
+            {"$project": {"weapon_count": {"$size": {"$ifNull": ["$weapons", []]}}}},
+            {"$group": {"_id": None, "avg_weapon_count": {"$avg": "$weapon_count"}}},
+            {"$project": {"avg_weapon_count": {"$round": ["$avg_weapon_count", 0]}}}
+        ]
+        result = db.characters.aggregate(pipeline)
+        result_list = list(result)
+        return result_list[0]["avg_weapon_count"] if result_list else 0.0
+    except Exception as e:
+        raise Exception(f"Error executing avg_weapons_per_character query: {e}")

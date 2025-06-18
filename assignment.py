@@ -92,6 +92,9 @@ if __name__ == '__main__':
         print("On average, how many Items does each Character have?")
         print(avg_items_per_character(mongdb))
 
+        print("On average, how many Weapons does each Character have?")
+        print(avg_weapons_per_character(mongdb))
+
     except Exception as e:
         print(f"Error: {e}")
     finally:
