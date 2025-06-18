@@ -30,8 +30,8 @@ def create_mdb_conn(user, password, dbname):
     return db
 
 # open connection to postgres
-# pg_conn = f"postgresql+psycopg2://{AIVEN_DB_USER}:{AIVEN_DB_PASSWORD}@{AIVEN_DB_HOST}:{AIVEN_DB_PORT}/{AIVEN_DB_NAME}?sslmode=require"
-# pg_engine = create_engine(pg_conn)
+pg_conn = f"postgresql+psycopg2://{AIVEN_DB_USER}:{AIVEN_DB_PASSWORD}@{AIVEN_DB_HOST}:{AIVEN_DB_PORT}/{AIVEN_DB_NAME}?sslmode=require"
+pg_engine = create_engine(pg_conn)
 
 # generic postgres query function
 def execute_postgres_query(query, engine):
@@ -43,34 +43,34 @@ if __name__ == '__main__':
     # execute postgres queries
     print('Executing postgres queries')
     try:
-        # print("How many passengers survived, and how many died?")
-        # print(execute_postgres_query(GET_PASSENGERS_SURVIVED_AND_DIED, pg_engine))
+        print("How many passengers survived, and how many died?")
+        print(execute_postgres_query(GET_PASSENGERS_SURVIVED_AND_DIED, pg_engine))
 
-        # print("How many passengers were in each class?")
-        # print(execute_postgres_query(GET_PASSENGERS_IN_EACH_CLASS, pg_engine))
+        print("How many passengers were in each class?")
+        print(execute_postgres_query(GET_PASSENGERS_IN_EACH_CLASS, pg_engine))
 
-        # print("How many passengers survived/died within each class?")
-        # print(execute_postgres_query(GET_PASSENGERS_SURVIVED_DIED_BY_CLASS, pg_engine))
+        print("How many passengers survived/died within each class?")
+        print(execute_postgres_query(GET_PASSENGERS_SURVIVED_DIED_BY_CLASS, pg_engine))
 
-        # print("What was the average age of survivors vs nonsurvivors?")
-        # print(execute_postgres_query(GET_AVG_AGE_OF_SURVIVORS_NONSURVIVORS, pg_engine))
+        print("What was the average age of survivors vs nonsurvivors?")
+        print(execute_postgres_query(GET_AVG_AGE_OF_SURVIVORS_NONSURVIVORS, pg_engine))
 
-        # print("What was the average age of each passenger class?")
-        # print(execute_postgres_query(GET_AVG_AGE_OF_EACH_PASSENGER_CLASS, pg_engine))
+        print("What was the average age of each passenger class?")
+        print(execute_postgres_query(GET_AVG_AGE_OF_EACH_PASSENGER_CLASS, pg_engine))
 
-        # print("What was the average fare by passenger class? By survival?")
-        # print(execute_postgres_query(GET_AVG_FARE_BY_CLASS_AND_SURVIVAL, pg_engine))
+        print("What was the average fare by passenger class? By survival?")
+        print(execute_postgres_query(GET_AVG_FARE_BY_CLASS_AND_SURVIVAL, pg_engine))
 
-        # print("How many siblings/spouses aboard on average, by passenger class? By survival?")
-        # print(execute_postgres_query(GET_SIBLINGS_SPOUSES_ABOARD_BY_CLASS_AND_SURVIVAL, pg_engine))
+        print("How many siblings/spouses aboard on average, by passenger class? By survival?")
+        print(execute_postgres_query(GET_SIBLINGS_SPOUSES_ABOARD_BY_CLASS_AND_SURVIVAL, pg_engine))
 
-        # print("How many parents/children aboard on average, by passenger class? By survival?")
-        # print(execute_postgres_query(GET_PARENTS_CHILDREN_ABOARD_BY_CLASS_AND_SURVIVAL, pg_engine))
+        print("How many parents/children aboard on average, by passenger class? By survival?")
+        print(execute_postgres_query(GET_PARENTS_CHILDREN_ABOARD_BY_CLASS_AND_SURVIVAL, pg_engine))
 
-        # print("Do any passengers have the same name?")
-        # print(execute_postgres_query(GET_PASSENGERS_WITH_SAME_LAST_NAME, pg_engine))
+        print("Do any passengers have the same name?")
+        print(execute_postgres_query(GET_PASSENGERS_WITH_SAME_LAST_NAME, pg_engine))
         
-        # print('All postgres queries executed successfully')
+        print('All postgres queries executed successfully')
 
         mongdb = create_mdb_conn(MONGODB_USER, MONGODB_PASSWORD, MONGODB_DBNAME)
 
