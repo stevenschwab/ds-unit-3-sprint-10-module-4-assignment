@@ -80,6 +80,9 @@ if __name__ == '__main__':
         print("How many total Items?")
         print(count_rpg_items(mongdb))
 
+        print("How many of the Items are Weapons? How many are not?")
+        print(count_rpg_weapons(mongdb))
+
     except Exception as e:
         print(f"Error: {e}")
     finally:
