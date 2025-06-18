@@ -77,6 +77,9 @@ if __name__ == '__main__':
         print("How many total Characters are there?")
         print(count_rpg_characters(mongdb))
 
+        print("How many total Items?")
+        print(count_rpg_items(mongdb))
+
     except Exception as e:
         print(f"Error: {e}")
     finally:
