@@ -63,7 +63,7 @@ def avg_items_per_character(db):
         pipeline = [
             {"$project": {"item_count": {"$size": {"$ifNull": ["$items", []]}}}},
             {"$group": {"_id": None, "avg_item_count": {"$avg": "$item_count"}}},
-            {"$project": {"avg_item_count": {"$round": ["$avg_item_count", 0]}}}
+            {"$project": {"avg_item_count": {"$round": ["$avg_item_count", 2]}}}
         ]
         result = db.characters.aggregate(pipeline)
         result_list = list(result)
@@ -79,7 +79,7 @@ def avg_weapons_per_character(db):
         pipeline = [
             {"$project": {"weapon_count": {"$size": {"$ifNull": ["$weapons", []]}}}},
             {"$group": {"_id": None, "avg_weapon_count": {"$avg": "$weapon_count"}}},
-            {"$project": {"avg_weapon_count": {"$round": ["$avg_weapon_count", 0]}}}
+            {"$project": {"avg_weapon_count": {"$round": ["$avg_weapon_count", 2]}}}
         ]
         result = db.characters.aggregate(pipeline)
         result_list = list(result)
