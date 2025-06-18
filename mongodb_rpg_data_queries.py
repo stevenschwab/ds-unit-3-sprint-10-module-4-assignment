@@ -54,3 +54,19 @@ def count_weapons_per_character(db):
         return list(cursor)
     except Exception as e:
         raise Exception(f"Error executing count_weapons_per_character query: {e}")
+    
+def avg_items_per_character(db):
+    """
+        Get the average item count per character
+    """
+    try:
+        pipeline = [
+            {"$project": {"item_count": {"$size": {"$ifNull": ["$items", []]}}}},
+            {"$group": {"_id": None, "avg_item_count": {"$avg": "$item_count"}}},
+            {"$project": {"avg_item_count": {"$round": ["$avg_item_count", 2]}}}
+        ]
+        result = db.characters.aggregate(pipeline)
+        result_list = list(result)
+        return result_list[0]["avg_item_count"] if result_list else 0.0
+    except Exception as e:
+        raise Exception(f"Error executing avg_items_per_character query: {e}")
